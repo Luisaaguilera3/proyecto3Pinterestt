@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const app = document.getElementById("html");
 app.innerHTML = `
 <header>
-    <img id="logo" src="./LOGO.png" alt="LA Pictures logo">
+    <img id="logo" src="./src/assets/LOGO.png" alt="LA Pictures logo">
     <div id="searchContainer">
         <input type="text" id="searchInput" placeholder="Buscar imágenes...">
         <button id="searchButton">Search</button>
