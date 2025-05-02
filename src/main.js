@@ -25,12 +25,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         fetchImages(query, currentPage, imagesPerPage).then(images => {
-            if (currentPage === 1) {
+            if (currentPage === 1 && query) {
                 firstQuery = query;
                 firstImages = images;
             }
+            if (!localStorage.getItem("busquedaPrimera")){
+                localStorage.setItem("busquedaPrimera", query);
+            }
             
             displayImages(images, imageContainer);
+            if (images.length === 0 && currentPage === 1){
+                showMessage("No such luck. We leave you with these adorable kittens. Try again!")
+            }
             isFetching = false;
         });
     }
@@ -44,11 +50,16 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         loadImages(query, true);
+        searchInput.value = "";
     });
 
     logo.addEventListener("click", () => {
-        searchInput.value = "";
-        displayImages(firstImages, imageContainer);
+        const busquedaPrimera = localStorage.getItem("busquedaPrimera");
+        if (busquedaPrimera) {
+            loadImages(busquedaPrimera, true);
+        } else{
+            loadImages("", true);
+        }
     });
 
     const observer = new IntersectionObserver(entries => {
